@@ -100,7 +100,7 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
     const iconWidth = rect.width / totalIcons;
     const iconCenter = rect.left + iconIndex * iconWidth + iconWidth / 2;
     const distance = Math.abs(mouseX - iconCenter);
-    const maxDistance = iconWidth * 2;
+    const maxDistance = iconWidth * 1.8;
     if (distance > maxDistance) return 1;
     const proximity = 1 - distance / maxDistance;
     return 1 + proximity * 0.35; // Smooth scale up to 1.35x
@@ -161,8 +161,8 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
   return (
     <>
       <nav aria-label="Dock" className="fixed bottom-0 left-0 right-0 hidden md:flex justify-center pb-3.5 z-100">
-        <div ref={dockRef} className="bg-gray-800/65 backdrop-blur-xl border border-white/15 rounded-2xl p-2 px-3 shadow-2xl">
-          <div className="flex items-center space-x-2.5" role="menubar">
+        <div ref={dockRef} className="bg-gray-800/65 backdrop-blur-xl border border-white/15 rounded-2xl p-2 px-4 shadow-2xl">
+          <div className="flex items-center space-x-4" role="menubar">
             {icons.map((item, index) => {
               const Icon = item.icon;
               const scale = calculateScale(index, icons.length);
