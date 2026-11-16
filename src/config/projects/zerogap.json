@@ -1,0 +1,45 @@
+{
+  "id": "zerogap",
+  "title": "ZeroGap: AI-Powered Career Intelligence",
+  "description": "An AI career platform that identifies student skill gaps, benchmarks industry requirements, and dynamically generates personalized learning roadmaps alongside automated resume enhancement and job discovery.",
+  "repoUrl": "https://github.com/rudranagar4",
+  "techStack": [
+    "Python",
+    "Generative AI",
+    "NLP",
+    "Career Tech",
+    "Data Science"
+  ],
+  "structure": {
+    "root": "ZeroGap",
+    "children": [
+      {
+        "name": "README.md",
+        "type": "file"
+      },
+      {
+        "name": "roadmap_engine.py",
+        "type": "file"
+      },
+      {
+        "name": "skill_gap_analyzer.py",
+        "type": "file"
+      },
+      {
+        "name": "resume_evaluator.py",
+        "type": "file"
+      },
+      {
+        "name": "api.py",
+        "type": "file"
+      }
+    ]
+  },
+  "images": [
+    {
+      "url": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80",
+      "alt": "ZeroGap AI Platform"
+    }
+  ]
+}
+

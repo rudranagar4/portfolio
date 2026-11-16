@@ -1,0 +1,40 @@
+{
+  "id": "hospital-queue",
+  "title": "Hospital Queue Management System",
+  "description": "An intuitive digital queue management system designed to minimize outpatient waiting times, streamline patient check-in workflows, and coordinate doctor appointment slots.",
+  "repoUrl": "https://github.com/rudranagar4",
+  "techStack": [
+    "HTML5",
+    "CSS3",
+    "JavaScript",
+    "Queue Management"
+  ],
+  "structure": {
+    "root": "Hospital-Queue-System",
+    "children": [
+      {
+        "name": "README.md",
+        "type": "file"
+      },
+      {
+        "name": "index.html",
+        "type": "file"
+      },
+      {
+        "name": "queue.js",
+        "type": "file"
+      },
+      {
+        "name": "style.css",
+        "type": "file"
+      }
+    ]
+  },
+  "images": [
+    {
+      "url": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80",
+      "alt": "Hospital Queue Management System"
+    }
+  ]
+}
+

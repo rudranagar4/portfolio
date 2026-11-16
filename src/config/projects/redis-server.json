@@ -1,0 +1,42 @@
+{
+  "id": "redis-server-cpp",
+  "title": "Redis Server in C++",
+  "description": "Building a Redis-style in-memory key-value server with client connections and core command handling. Focusing on low-level networking, request parsing, concurrency, and efficient in-memory data storage.",
+  "repoUrl": "https://github.com/rudranagar4",
+  "techStack": [
+    "C++",
+    "Systems Programming",
+    "Socket Networking",
+    "TCP/IP",
+    "Key-Value Store"
+  ],
+  "structure": {
+    "root": "redis-server-cpp",
+    "children": [
+      {
+        "name": "README.md",
+        "type": "file"
+      },
+      {
+        "name": "src",
+        "type": "directory",
+        "children": [
+          { "name": "server.cpp", "type": "file" },
+          { "name": "parser.cpp", "type": "file" },
+          { "name": "storage.cpp", "type": "file" },
+          { "name": "storage.h", "type": "file" }
+        ]
+      },
+      {
+        "name": "Makefile",
+        "type": "file"
+      }
+    ]
+  },
+  "images": [
+    {
+      "url": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80",
+      "alt": "Redis Server in C++ Architecture"
+    }
+  ]
+}

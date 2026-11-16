@@ -1,0 +1,45 @@
+{
+  "id": "roompulse-ai",
+  "title": "RoomPulse AI",
+  "description": "A privacy-first indoor sensing system that detects human movement, presence, and occupancy patterns using Wi-Fi Channel State Information (CSI), eliminating cameras, microphones, or wearables.",
+  "repoUrl": "https://github.com/rudranagar4",
+  "techStack": [
+    "Python",
+    "Wi-Fi CSI",
+    "Signal Processing",
+    "Machine Learning",
+    "Privacy-First AI"
+  ],
+  "structure": {
+    "root": "RoomPulse-AI",
+    "children": [
+      {
+        "name": "README.md",
+        "type": "file"
+      },
+      {
+        "name": "csi_analyzer.py",
+        "type": "file"
+      },
+      {
+        "name": "presence_detector.py",
+        "type": "file"
+      },
+      {
+        "name": "simulation.py",
+        "type": "file"
+      },
+      {
+        "name": "requirements.txt",
+        "type": "file"
+      }
+    ]
+  },
+  "images": [
+    {
+      "url": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80",
+      "alt": "RoomPulse AI - Wi-Fi CSI Sensing"
+    }
+  ]
+}
+

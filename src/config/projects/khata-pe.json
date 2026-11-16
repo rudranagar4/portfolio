@@ -1,0 +1,42 @@
+{
+  "id": "khata-pe",
+  "title": "Khata Pe - Rental Management App",
+  "description": "A comprehensive rental-management application for landlords to manage properties, tenants, and monthly rent records with WhatsApp reminders, automated PDF receipts, Excel reports, biometric app lock, and offline-first Firestore sync.",
+  "repoUrl": "https://github.com/rudranagar4",
+  "techStack": [
+    "Flutter",
+    "Dart",
+    "Firebase Firestore",
+    "Android",
+    "Biometric Security"
+  ],
+  "structure": {
+    "root": "khata_pe",
+    "children": [
+      { "name": "pubspec.yaml", "type": "file" },
+      { "name": "README.md", "type": "file" },
+      {
+        "name": "lib",
+        "type": "directory",
+        "children": [
+          { "name": "main.dart", "type": "file" },
+          { "name": "services", "type": "directory", "children": [
+            { "name": "firestore_sync.dart", "type": "file" },
+            { "name": "pdf_generator.dart", "type": "file" },
+            { "name": "biometric_auth.dart", "type": "file" }
+          ]},
+          { "name": "screens", "type": "directory", "children": [
+            { "name": "property_dashboard.dart", "type": "file" },
+            { "name": "tenant_management.dart", "type": "file" }
+          ]}
+        ]
+      }
+    ]
+  },
+  "images": [
+    {
+      "url": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80",
+      "alt": "Khata Pe Property & Rental Management"
+    }
+  ]
+}

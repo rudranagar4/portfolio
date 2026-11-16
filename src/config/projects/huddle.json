@@ -1,0 +1,42 @@
+{
+  "id": "huddle",
+  "title": "Huddle",
+  "description": "A cross-platform mobile collaboration and communication application developed with Dart and Flutter.",
+  "repoUrl": "https://github.com/rudranagar4",
+  "techStack": [
+    "Dart",
+    "Flutter",
+    "Mobile Development",
+    "Cross-Platform"
+  ],
+  "structure": {
+    "root": "Huddle",
+    "children": [
+      {
+        "name": "README.md",
+        "type": "file"
+      },
+      {
+        "name": "pubspec.yaml",
+        "type": "file"
+      },
+      {
+        "name": "lib",
+        "type": "directory",
+        "children": [
+          {
+            "name": "main.dart",
+            "type": "file"
+          }
+        ]
+      }
+    ]
+  },
+  "images": [
+    {
+      "url": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
+      "alt": "Huddle Collaboration App"
+    }
+  ]
+}
+
