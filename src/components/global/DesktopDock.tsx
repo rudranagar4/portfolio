@@ -72,7 +72,7 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
     const handleMouseMove = (e: MouseEvent) => {
       if (dockRef.current) {
         const rect = dockRef.current.getBoundingClientRect();
-        if (e.clientY >= rect.top - 50 && e.clientY <= rect.bottom + 50) {
+        if (e.clientY >= rect.top - 40 && e.clientY <= rect.bottom + 40) {
           setMouseX(e.clientX);
         } else {
           setMouseX(null);
@@ -103,11 +103,11 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
     const maxDistance = iconWidth * 2;
     if (distance > maxDistance) return 1;
     const proximity = 1 - distance / maxDistance;
-    return 1 + proximity * 0.4; // Scale up to 1.4x
+    return 1 + proximity * 0.35; // Smooth scale up to 1.35x
   };
 
   const Tooltip = ({ text }: { text: string }) => (
-    <div className="absolute -top-11 left-1/2 transform -translate-x-1/2 bg-gray-900/90 text-white font-medium px-3 py-1.5 rounded-lg text-xs whitespace-nowrap shadow-xl border border-white/10 pointer-events-none z-50">
+    <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gray-900/90 text-white font-medium px-2.5 py-1 rounded-lg text-xs whitespace-nowrap shadow-xl border border-white/10 pointer-events-none z-50">
       {text}
     </div>
   );
@@ -115,7 +115,7 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
   const LinksPopup = () => (
     <div
       ref={linksPopupRef}
-      className="absolute bottom-24 left-1/2 transform -translate-x-1/2 bg-gray-900/95 border border-white/10 w-44 backdrop-blur-md rounded-xl p-3 shadow-2xl z-50"
+      className="absolute bottom-20 left-1/2 transform -translate-x-1/2 bg-gray-900/95 border border-white/10 w-44 backdrop-blur-md rounded-xl p-3 shadow-2xl z-50"
     >
       <div className="grid grid-cols-1 gap-y-2">
         <a
@@ -160,9 +160,9 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
 
   return (
     <>
-      <nav aria-label="Dock" className="fixed bottom-0 left-0 right-0 hidden md:flex justify-center pb-5 z-100">
-        <div ref={dockRef} className="bg-gray-800/65 backdrop-blur-xl border border-white/15 rounded-3xl p-3 px-4 shadow-2xl">
-          <div className="flex items-center space-x-3.5" role="menubar">
+      <nav aria-label="Dock" className="fixed bottom-0 left-0 right-0 hidden md:flex justify-center pb-3.5 z-100">
+        <div ref={dockRef} className="bg-gray-800/65 backdrop-blur-xl border border-white/15 rounded-2xl p-2 px-3 shadow-2xl">
+          <div className="flex items-center space-x-2.5" role="menubar">
             {icons.map((item, index) => {
               const Icon = item.icon;
               const scale = calculateScale(index, icons.length);
@@ -179,9 +179,9 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
                   className="relative group cursor-pointer"
                   style={{ transform: `scale(${scale})`, transition: 'transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)' }}
                 >
-                  <div className={`relative w-16 h-16 bg-gradient-to-t ${item.color} rounded-2xl flex items-center justify-center shadow-xl active:scale-95 transition-all duration-150 ${item.active ? 'ring-2 ring-white/60' : ''}`}>
-                    <Icon size={item.id === 'email' ? 50 : item.id === 'calendar' || item.id === 'links' ? 36 : 42} className='text-white drop-shadow' />
-                    {item.active && <span className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-2 h-2 bg-white rounded-full shadow-sm" aria-hidden="true" />}
+                  <div className={`relative w-[52px] h-[52px] bg-gradient-to-t ${item.color} rounded-xl flex items-center justify-center shadow-xl active:scale-95 transition-all duration-150 ${item.active ? 'ring-2 ring-white/60' : ''}`}>
+                    <Icon size={item.id === 'email' ? 40 : item.id === 'calendar' || item.id === 'links' ? 26 : 32} className='text-white drop-shadow' />
+                    {item.active && <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-white rounded-full shadow-sm" aria-hidden="true" />}
                   </div>
                   {hoveredIcon === item.id && <Tooltip text={item.label} />}
                   {item.id === 'links' && showLinksPopup && <LinksPopup />}
