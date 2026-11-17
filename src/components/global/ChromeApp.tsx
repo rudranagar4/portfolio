@@ -54,7 +54,7 @@ export default function ChromeApp({ isOpen, onClose }: ChromeAppProps) {
     },
     {
       id: 'tab-youtube',
-      title: 'YouTube Music',
+      title: 'YouTube',
       url: 'https://youtube.com',
       type: 'youtube',
     },
@@ -62,7 +62,11 @@ export default function ChromeApp({ isOpen, onClose }: ChromeAppProps) {
   const [activeTabId, setActiveTabId] = useState('tab-google');
   const [urlInput, setUrlInput] = useState('https://www.google.com');
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeYoutubeTrack, setActiveYoutubeTrack] = useState<string>('Winning Speech - Karan Aujla');
+  const [selectedYtVideoId, setSelectedYtVideoId] = useState<string>('cGM8vG_GvQ0');
+  const [selectedYtTitle, setSelectedYtTitle] = useState<string>('Karan Aujla - Softly (Official Music Video)');
+  const [selectedYtChannel, setSelectedYtChannel] = useState<string>('Karan Aujla');
+  const [ytSearchInput, setYtSearchInput] = useState<string>('');
+  const [ytCategory, setYtCategory] = useState<string>('All');
   const [leetcodeFilter, setLeetcodeFilter] = useState<'All' | 'Easy' | 'Medium' | 'Hard'>('All');
   const [leetcodeCategory, setLeetcodeCategory] = useState<string>('All');
   const [leetcodeSearch, setLeetcodeSearch] = useState<string>('');
@@ -190,8 +194,8 @@ export default function ChromeApp({ isOpen, onClose }: ChromeAppProps) {
     // Check known domains
     if (dest.includes('github.com')) {
       handleOpenTab('github', 'GitHub - rudranagar4', dest);
-    } else if (dest.includes('youtube.com')) {
-      handleOpenTab('youtube', 'YouTube Music', dest);
+    } else if (dest.includes('youtube.com') || dest.includes('youtu.be')) {
+      handleOpenTab('youtube', 'YouTube', dest);
     } else if (dest.includes('leetcode.com')) {
       handleOpenTab('leetcode', 'LeetCode Practice', dest);
     } else if (dest.includes('google.com')) {
@@ -209,10 +213,10 @@ export default function ChromeApp({ isOpen, onClose }: ChromeAppProps) {
       action: () => handleOpenTab('github', 'GitHub - rudranagar4', userConfig.social.github),
     },
     {
-      name: 'YouTube Music',
+      name: 'YouTube',
       icon: <FaYoutube size={22} className="text-red-500" />,
       bg: 'bg-zinc-800',
-      action: () => handleOpenTab('youtube', 'YouTube Music', 'https://youtube.com'),
+      action: () => handleOpenTab('youtube', 'YouTube', 'https://youtube.com'),
     },
     {
       name: 'LeetCode',
@@ -589,85 +593,314 @@ export default function ChromeApp({ isOpen, onClose }: ChromeAppProps) {
             </div>
           )}
 
-          {/* TAB 3: YOUTUBE MUSIC INSIDE CHROME */}
-          {activeTab.type === 'youtube' && (
-            <div className="p-4 md:p-6 max-w-4xl mx-auto w-full space-y-6">
-              {/* YouTube Banner */}
-              <div className="bg-gradient-to-r from-red-950 via-zinc-900 to-black border border-white/10 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 shadow-xl">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-2xl bg-red-600 flex items-center justify-center text-white shadow-lg flex-shrink-0">
-                    <FaYoutube size={32} />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h2 className="text-xl font-bold text-white">YouTube Music Player</h2>
-                      <span className="text-[10px] px-2 py-0.5 rounded bg-red-600/30 text-red-300 font-semibold border border-red-500/30">
-                        HD Audio
-                      </span>
+          {/* TAB 3: YOUTUBE INSIDE CHROME */}
+          {activeTab.type === 'youtube' && (() => {
+            const youtubeVideos = [
+              {
+                id: 'cGM8vG_GvQ0',
+                title: 'Karan Aujla - Softly (Official Music Video)',
+                channel: 'Karan Aujla',
+                views: '120M views',
+                duration: '2:36',
+                category: 'Karan Aujla',
+              },
+              {
+                id: '4TWRfT1m18w',
+                title: 'Karan Aujla - 52 Bars | Four You (Official Video)',
+                channel: 'Karan Aujla',
+                views: '95M views',
+                duration: '3:45',
+                category: 'Karan Aujla',
+              },
+              {
+                id: 'rW2U8yHlD6c',
+                title: 'Karan Aujla - Winning Speech (Official Video)',
+                channel: 'Karan Aujla',
+                views: '80M views',
+                duration: '3:34',
+                category: 'Karan Aujla',
+              },
+              {
+                id: 'bL6h5lZ_9oY',
+                title: 'Diljit Dosanjh - Lover (Official Music Video)',
+                channel: 'Diljit Dosanjh',
+                views: '150M views',
+                duration: '3:12',
+                category: 'Diljit Dosanjh',
+              },
+              {
+                id: '9iIX0z_2w6w',
+                title: 'Diljit Dosanjh - Born to Shine (Official Video)',
+                channel: 'Diljit Dosanjh',
+                views: '210M views',
+                duration: '3:22',
+                category: 'Diljit Dosanjh',
+              },
+              {
+                id: 'cl0a3i2wFcc',
+                title: 'Diljit Dosanjh - G.O.A.T. (Official Music Video)',
+                channel: 'Diljit Dosanjh',
+                views: '260M views',
+                duration: '3:43',
+                category: 'Diljit Dosanjh',
+              },
+              {
+                id: '4NRXx6U8ABQ',
+                title: 'The Weeknd - Blinding Lights (Official Video)',
+                channel: 'The Weeknd',
+                views: '850M views',
+                duration: '3:20',
+                category: 'The Weeknd',
+              },
+              {
+                id: '34Na4j8AVgA',
+                title: 'The Weeknd ft. Daft Punk - Starboy (Official Video)',
+                channel: 'The Weeknd',
+                views: '2.4B views',
+                duration: '3:50',
+                category: 'The Weeknd',
+              },
+              {
+                id: 'm8cE-aY_nNk',
+                title: 'Dhanda Nyoliwala - Russian Bandana (Official Video)',
+                channel: 'Dhanda Nyoliwala',
+                views: '45M views',
+                duration: '2:48',
+                category: 'Dhanda Nyoliwala',
+              },
+              {
+                id: '1uRzE19p_78',
+                title: 'Dhanda Nyoliwala - Raat Ki Rani (Official Video)',
+                channel: 'Dhanda Nyoliwala',
+                views: '30M views',
+                duration: '3:15',
+                category: 'Dhanda Nyoliwala',
+              },
+              {
+                id: 'vLnPwxZdW4Y',
+                title: 'C++ Full Course for Beginners - Complete Systems Guide',
+                channel: 'freeCodeCamp.org',
+                views: '5.2M views',
+                duration: '4:01:20',
+                category: 'Coding',
+              },
+              {
+                id: 'XGsS3_3sY-k',
+                title: 'CS50 2026 - Lecture 0 - Computational Problem Solving',
+                channel: 'CS50',
+                views: '3.1M views',
+                duration: '2:15:30',
+                category: 'Coding',
+              },
+            ];
+
+            const categories = ['All', 'Karan Aujla', 'Diljit Dosanjh', 'The Weeknd', 'Dhanda Nyoliwala', 'Coding'];
+
+            const handleYtSearchSubmit = (e: React.FormEvent) => {
+              e.preventDefault();
+              const q = ytSearchInput.trim();
+              if (!q) return;
+
+              // Check if URL or video ID
+              let videoId = '';
+              if (q.includes('watch?v=')) {
+                videoId = q.split('watch?v=')[1].split('&')[0];
+              } else if (q.includes('youtu.be/')) {
+                videoId = q.split('youtu.be/')[1].split('?')[0];
+              } else if (q.includes('embed/')) {
+                videoId = q.split('embed/')[1].split('?')[0];
+              } else if (/^[a-zA-Z0-9_-]{11}$/.test(q)) {
+                videoId = q;
+              }
+
+              if (videoId) {
+                setSelectedYtVideoId(videoId);
+                setSelectedYtTitle(`YouTube Video (${videoId})`);
+                setSelectedYtChannel('YouTube Stream');
+                setYtSearchInput('');
+              }
+            };
+
+            const filteredVideos = youtubeVideos.filter((v) => {
+              const matchesCat = ytCategory === 'All' || v.category === ytCategory;
+              const matchesSearch =
+                !ytSearchInput.trim() ||
+                v.title.toLowerCase().includes(ytSearchInput.toLowerCase()) ||
+                v.channel.toLowerCase().includes(ytSearchInput.toLowerCase());
+              return matchesCat && matchesSearch;
+            });
+
+            return (
+              <div className="p-4 md:p-6 max-w-5xl mx-auto w-full space-y-5">
+                {/* YouTube Top Bar */}
+                <div className="bg-[#121212] border border-white/10 rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-4 shadow-xl">
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-1.5 text-white font-bold text-lg tracking-tight">
+                      <div className="w-9 h-7 bg-red-600 rounded-lg flex items-center justify-center text-white shadow-md">
+                        <FaPlay size={10} className="ml-0.5" />
+                      </div>
+                      <span>YouTube</span>
+                      <span className="text-[10px] text-gray-400 font-normal">IN</span>
                     </div>
-                    <p className="text-xs text-gray-300 mt-1">
-                      Now playing: <span className="font-semibold text-white">{activeYoutubeTrack}</span>
-                    </p>
+                  </div>
+
+                  {/* YouTube Search Bar */}
+                  <form onSubmit={handleYtSearchSubmit} className="flex-1 max-w-lg w-full flex items-center">
+                    <div className="relative flex-1 flex items-center bg-[#1f1f1f] border border-white/10 rounded-l-full px-4 py-2 focus-within:border-blue-500 transition-all">
+                      <FaSearch className="text-gray-400 mr-2 text-xs" />
+                      <input
+                        type="text"
+                        value={ytSearchInput}
+                        onChange={(e) => setYtSearchInput(e.target.value)}
+                        placeholder="Search video title or paste YouTube link..."
+                        className="w-full bg-transparent text-xs text-white placeholder-gray-500 focus:outline-none"
+                      />
+                      {ytSearchInput && (
+                        <button
+                          type="button"
+                          onClick={() => setYtSearchInput('')}
+                          className="text-gray-400 hover:text-white"
+                        >
+                          <FaTimes size={11} />
+                        </button>
+                      )}
+                    </div>
+                    <button
+                      type="submit"
+                      className="px-4 py-2 bg-[#2d2d2d] hover:bg-[#3d3d3d] border-y border-r border-white/10 rounded-r-full text-xs text-gray-200 transition-colors cursor-pointer"
+                      title="Search"
+                    >
+                      <FaSearch size={12} />
+                    </button>
+                  </form>
+
+                  <a
+                    href={`https://www.youtube.com/results?search_query=${encodeURIComponent(ytSearchInput || 'Karan Aujla')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-3.5 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold rounded-full shadow-md transition-all flex-shrink-0 cursor-pointer"
+                  >
+                    <span>Open YouTube.com</span>
+                    <FaExternalLinkAlt size={9} />
+                  </a>
+                </div>
+
+                {/* Embedded Active Video Player */}
+                <div className="bg-[#0f0f0f] border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
+                  <div className="relative w-full aspect-video bg-black flex items-center justify-center">
+                    <iframe
+                      src={`https://www.youtube-nocookie.com/embed/${selectedYtVideoId}?autoplay=1&rel=0&modestbranding=1`}
+                      title={selectedYtTitle}
+                      className="w-full h-full border-none"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    />
+                  </div>
+
+                  {/* Video Details & Interaction Row */}
+                  <div className="p-4 md:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-t border-white/10 bg-[#161616]">
+                    <div>
+                      <h2 className="text-base md:text-lg font-bold text-white tracking-tight">{selectedYtTitle}</h2>
+                      <div className="flex items-center gap-2 mt-1 text-xs text-gray-400">
+                        <span className="font-semibold text-gray-200 flex items-center gap-1">
+                          {selectedYtChannel}
+                          <FaCheckCircle size={10} className="text-gray-400" />
+                        </span>
+                        <span>&bull;</span>
+                        <span className="text-green-400">Playing in macOS Chrome</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                      <a
+                        href={`https://www.youtube.com/watch?v=${selectedYtVideoId}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors"
+                      >
+                        <FaExternalLinkAlt size={10} />
+                        <span>Watch on App</span>
+                      </a>
+                    </div>
                   </div>
                 </div>
 
-                <a
-                  href="https://youtube.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 px-3.5 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold rounded-full shadow-md transition-colors"
-                >
-                  <FaExternalLinkAlt size={10} />
-                  <span>Open on YouTube.com</span>
-                </a>
-              </div>
-
-              {/* YouTube Featured Tracks Playlist */}
-              <div className="bg-[#181818] rounded-xl border border-white/10 p-5 space-y-3">
-                <div className="flex items-center justify-between pb-2 border-b border-white/10">
-                  <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                    <FaPlay size={11} className="text-red-500" />
-                    <span>Top Tracks (Karan Aujla, Diljit Dosanjh, The Weeknd, Dhanda)</span>
-                  </h3>
-                  <span className="text-xs text-gray-400">{youtubeTracks.length} tracks</span>
-                </div>
-
-                <div className="divide-y divide-white/5">
-                  {youtubeTracks.map((track, idx) => {
-                    const isCurrent = activeYoutubeTrack.includes(track.title);
+                {/* Categories Row */}
+                <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+                  {categories.map((cat) => {
+                    const isSelected = ytCategory === cat;
                     return (
-                      <div
-                        key={track.title}
-                        onClick={() => setActiveYoutubeTrack(`${track.title} - ${track.artist}`)}
-                        className={`flex items-center justify-between p-2.5 rounded-lg transition-colors cursor-pointer ${
-                          isCurrent ? 'bg-white/10 text-white font-semibold' : 'hover:bg-white/5 text-gray-300'
+                      <button
+                        key={cat}
+                        onClick={() => setYtCategory(cat)}
+                        className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
+                          isSelected
+                            ? 'bg-white text-black shadow-md'
+                            : 'bg-white/10 text-gray-300 hover:bg-white/20'
                         }`}
                       >
-                        <div className="flex items-center gap-3">
-                          <span className="text-xs text-gray-500 w-4 text-center">{idx + 1}</span>
-                          <div
-                            className={`w-8 h-8 rounded-md flex items-center justify-center ${
-                              isCurrent ? 'bg-red-600 text-white' : 'bg-white/10 text-gray-400'
-                            }`}
-                          >
-                            <FaPlay size={10} />
-                          </div>
-                          <div>
-                            <p className="text-xs text-white leading-tight">{track.title}</p>
-                            <p className="text-[11px] text-gray-400">{track.artist} &bull; {track.genre}</p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-3 text-xs text-gray-400">
-                          <span>{track.duration}</span>
-                          {isCurrent && <span className="text-red-400 text-[10px] font-bold">PLAYING</span>}
-                        </div>
-                      </div>
+                        {cat}
+                      </button>
                     );
                   })}
                 </div>
+
+                {/* Video Grid Feed */}
+                <div className="space-y-3">
+                  <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider">
+                    Recommended Videos ({filteredVideos.length}) &bull; Click to Play
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5">
+                    {filteredVideos.map((vid) => {
+                      const isPlaying = selectedYtVideoId === vid.id;
+                      return (
+                        <div
+                          key={vid.id}
+                          onClick={() => {
+                            setSelectedYtVideoId(vid.id);
+                            setSelectedYtTitle(vid.title);
+                            setSelectedYtChannel(vid.channel);
+                          }}
+                          className={`bg-[#181818] rounded-xl border overflow-hidden cursor-pointer group transition-all hover:border-white/30 flex flex-col justify-between ${
+                            isPlaying ? 'border-red-500 ring-2 ring-red-500/50' : 'border-white/5'
+                          }`}
+                        >
+                          <div className="relative aspect-video bg-black/60 overflow-hidden">
+                            <img
+                              src={`https://img.youtube.com/vi/${vid.id}/hqdefault.jpg`}
+                              alt={vid.title}
+                              loading="lazy"
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                            />
+                            <span className="absolute bottom-1.5 right-1.5 bg-black/80 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">
+                              {vid.duration}
+                            </span>
+                            {isPlaying && (
+                              <div className="absolute inset-0 bg-red-600/30 flex items-center justify-center text-white font-bold text-xs gap-1.5 backdrop-blur-[1px]">
+                                <FaPlay size={12} className="animate-pulse" />
+                                <span>NOW PLAYING</span>
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="p-3 space-y-1">
+                            <h4 className="text-xs font-bold text-white line-clamp-2 leading-snug group-hover:text-red-400 transition-colors">
+                              {vid.title}
+                            </h4>
+                            <p className="text-[11px] text-gray-400 flex items-center gap-1">
+                              {vid.channel}
+                              <FaCheckCircle size={9} className="text-gray-500" />
+                            </p>
+                            <p className="text-[10px] text-gray-500">{vid.views}</p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
-            </div>
-          )}
+            );
+          })()}
 
           {/* TAB 4: LEETCODE / DSA TRACKER */}
           {activeTab.type === 'leetcode' && (() => {

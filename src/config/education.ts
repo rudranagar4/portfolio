@@ -1,6 +1,6 @@
 /**
  * Education and courses configuration
- * Add your educational background and courses here
+ * Real educational background and verified certificates
  */
 
 import type { Education, Course } from '../types';
@@ -25,80 +25,106 @@ export const education: readonly Education[] = [
 
 export const courses: readonly Course[] = [
   {
+    title: 'Industry Solve Hackathon 2026',
+    description: 'Participated in a 2-phase ideathon on industry-grade product engineering, modular development, system integration, and deployable intelligent IoT systems.',
+    institution: 'IIIT Delhi & STMicroelectronics (CIPD)',
+    location: 'Delhi, India',
+    year: 'Oct 2026',
+    images: [
+      {
+        url: '/certificates/iiit-delhi-hackathon.jpg',
+        alt: 'IIIT Delhi Industry Solve Hackathon Certificate',
+      },
+    ],
+  },
+  {
     title: 'Red Hat Enterprise Linux Automation with Ansible (RH294)',
-    description: 'Enterprise Linux automation using Ansible, playbook development, role creation, and automated system administration.',
+    description: 'Enterprise Linux automation using Ansible, playbook development, role creation, and automated system administration. 32 credit hours.',
     institution: 'Red Hat',
     location: 'Certified',
     year: 'Sep 2026',
     images: [
       {
-        url: 'https://images.credly.com/images/3a232f17-f273-4554-94c6-48c08ec2d829/RH294.png',
-        alt: 'Red Hat RH294 Certification',
+        url: '/certificates/redhat-rh294-ansible.png',
+        alt: 'Red Hat RH294 Ansible Automation Certificate',
       },
     ],
   },
   {
-    title: 'Getting Started with Linux Fundamentals (RH104)',
-    description: 'Enterprise Linux fundamentals, command-line operations, user administration, storage, file systems, and system security.',
-    institution: 'Red Hat',
+    title: 'Adobe Creativity & GenAI (Gold Certificate)',
+    description: 'Awarded Gold Category (70%+ score) assessment certification in multimodal generative AI and creative tools.',
+    institution: 'FutureSkills Prime, MeitY & NASSCOM',
     location: 'Certified',
-    year: 'Aug 2026',
+    year: 'Oct 2026',
     images: [
       {
-        url: 'https://images.credly.com/images/eed2cd76-0bfd-4e96-a6c8-e0473e3a479a/RHCSA.png',
-        alt: 'Red Hat Fundamentals RH104',
-      },
-    ],
-  },
-  {
-    title: 'Probability and Statistics using Python',
-    description: 'Comprehensive statistical modeling, probability distributions, data distributions, and scientific computing with Python.',
-    institution: 'Infosys Springboard',
-    location: 'Certified',
-    year: 'Aug 2026',
-    images: [
-      {
-        url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
-        alt: 'Probability & Statistics Python',
+        url: '/certificates/adobe-creativity-genai.jpg',
+        alt: 'Adobe Creativity & GenAI Gold Certificate',
       },
     ],
   },
   {
     title: 'Introduction to Data Science',
-    description: 'Foundations of data science, analytics methodologies, data exploration, predictive thinking, and real-world data pipelines.',
+    description: 'Foundations of data science, predictive thinking, exploratory analytics, and real-world data pipelines.',
     institution: 'Cisco Networking Academy',
     location: 'Certified',
     year: 'Oct 2026',
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=800&q=80',
-        alt: 'Cisco Introduction to Data Science',
+        url: '/certificates/cisco-intro-data-science.jpg',
+        alt: 'Cisco Introduction to Data Science Certificate',
       },
     ],
   },
   {
     title: 'Computational Problem Solving',
-    description: 'Algorithmic thinking, data structures, optimization techniques, and computational complexity analysis.',
+    description: 'Algorithmic thinking, complexity analysis, structured problem decomposition, and optimized data structures.',
     institution: 'Infosys Springboard',
     location: 'Certified',
     year: 'Oct 2026',
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80',
-        alt: 'Computational Problem Solving',
+        url: '/certificates/computational-problem-solving-infosys.jpg',
+        alt: 'Infosys Computational Problem Solving Certificate',
+      },
+    ],
+  },
+  {
+    title: 'British Council EnglishScore (CEFR B2 Upper Intermediate)',
+    description: 'Certified CEFR B2 Upper Intermediate level in EnglishScore Speaking Assessment (Score: 416). Fluency: 441, Pronunciation: 432.',
+    institution: 'British Council & NIET Greater Noida',
+    location: 'Certified',
+    year: 'May 2026',
+    images: [
+      {
+        url: '/certificates/british-council-englishscore.jpg',
+        alt: 'British Council EnglishScore Certificate',
       },
     ],
   },
   {
     title: 'Gen AI 101',
     description: 'Foundations of generative artificial intelligence, LLM architectures, prompt engineering, and multimodal AI workflows.',
-    institution: 'FutureSkills Prime / NASSCOM',
+    institution: 'FutureSkills Prime / NASSCOM IT-ITeS SSC',
     location: 'Certified',
     year: 'Aug 2026',
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
-        alt: 'Gen AI 101 NASSCOM',
+        url: '/certificates/genai-101-nasscom.jpg',
+        alt: 'NASSCOM Gen AI 101 Certificate',
+      },
+    ],
+  },
+  {
+    title: 'Social Internship on Child Education',
+    description: '1-month social internship on child education, community engagement, and grassroots learning development.',
+    institution: 'Child Welfare & Educational Society (CWES)',
+    location: 'Faridabad, India',
+    year: 'Jun 2026',
+    images: [
+      {
+        url: '/certificates/cwes-social-internship.jpg',
+        alt: 'CWES Social Internship Certificate',
       },
     ],
   },

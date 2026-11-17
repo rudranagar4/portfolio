@@ -118,10 +118,9 @@ export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
       setCurrentBg(newBg);
     }
 
-    // Only show tutorial if user hasn't completed it before
-    if (!hasCompletedTutorial) {
-      setShowTutorial(true);
-    }
+    // Starting tour removed per user preference
+    localStorage.setItem('hasCompletedTutorial', 'true');
+    setShowTutorial(false);
 
     localStorage.setItem('lastBackground', currentBg);
   }, [initialBg, backgroundMap]);
