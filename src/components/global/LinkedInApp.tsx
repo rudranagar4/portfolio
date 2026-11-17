@@ -21,6 +21,7 @@ import {
   FaExpand,
   FaAward,
 } from 'react-icons/fa';
+import { SiLeetcode } from 'react-icons/si';
 import { userConfig } from '../../config/index';
 import { linkedinPosts, type LinkedInPost } from '../../config/linkedinPosts';
 
@@ -287,6 +288,16 @@ export default function LinkedInApp({ isOpen, onClose }: LinkedInAppProps) {
                     <FaPhoneAlt size={10} className="text-gray-400" />
                     {userConfig.contact.phone}
                   </span>
+                  <a
+                    href={userConfig.social.leetcode || 'https://leetcode.com/u/Vlx3f7mVBz/'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-gray-400 hover:text-[#ffa116] transition-colors"
+                    title="View LeetCode Profile"
+                  >
+                    <SiLeetcode size={11} className="text-[#ffa116]" />
+                    <span>LeetCode</span>
+                  </a>
                 </div>
                 <div className="pt-1.5 flex items-center gap-2 text-xs font-semibold text-[#70b5f9]">
                   <span>500+ connections</span>

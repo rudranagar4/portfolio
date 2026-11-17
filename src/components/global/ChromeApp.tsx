@@ -222,7 +222,7 @@ export default function ChromeApp({ isOpen, onClose }: ChromeAppProps) {
       name: 'LeetCode',
       icon: <FaCode size={20} className="text-amber-500" />,
       bg: 'bg-zinc-800',
-      action: () => handleOpenTab('leetcode', 'LeetCode Practice', 'https://leetcode.com'),
+      action: () => handleOpenTab('leetcode', 'LeetCode Practice', userConfig.social.leetcode || 'https://leetcode.com/u/Vlx3f7mVBz/'),
     },
     {
       name: 'NIET Portal',
@@ -484,9 +484,9 @@ export default function ChromeApp({ isOpen, onClose }: ChromeAppProps) {
                 </div>
 
                 <div className="bg-[#292a2d] p-4 rounded-xl border border-white/5 space-y-1">
-                  <span className="text-xs text-gray-400">https://leetcode.com/rudranagar4</span>
+                  <span className="text-xs text-gray-400">https://leetcode.com/u/Vlx3f7mVBz/</span>
                   <h3
-                    onClick={() => handleOpenTab('leetcode', 'LeetCode Practice', 'https://leetcode.com')}
+                    onClick={() => handleOpenTab('leetcode', 'LeetCode Practice', userConfig.social.leetcode || 'https://leetcode.com/u/Vlx3f7mVBz/')}
                     className="text-base text-[#8ab4f8] hover:underline cursor-pointer font-medium"
                   >
                     Data Structures & Algorithms in C++ &bull; LeetCode Track
@@ -944,7 +944,7 @@ export default function ChromeApp({ isOpen, onClose }: ChromeAppProps) {
                   </div>
 
                   <a
-                    href="https://leetcode.com"
+                    href={userConfig.social.leetcode || 'https://leetcode.com/u/Vlx3f7mVBz/'}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 px-4 py-2 bg-[#ffa116] hover:bg-[#e69113] text-black font-bold text-xs rounded-full shadow-md transition-all hover:scale-105 active:scale-95"

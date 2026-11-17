@@ -119,6 +119,7 @@ export interface Competition {
 export interface SocialLinks {
   github: string;
   linkedin: string;
+  leetcode?: string;
 }
 
 export interface ContactInfo {

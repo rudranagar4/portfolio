@@ -84,6 +84,8 @@ Location: ${userConfig.location}
 
 Contact: ${userConfig.contact.email}
 GitHub: ${userConfig.social.github}
+LinkedIn: ${userConfig.social.linkedin}
+LeetCode: ${userConfig.social.leetcode}
 
 Ask me anything!
 `;

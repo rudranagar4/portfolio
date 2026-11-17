@@ -119,11 +119,19 @@ export default function ContactWidget({ open, onClose }: ContactWidgetProps) {
             {error && (
               <div className="text-red-300 text-sm bg-red-500/10 border border-red-500/30 rounded-md p-2">{error}</div>
             )}
-            <div className="flex items-center justify-between">
-              <button type="submit" disabled={disabled} className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
+              <button type="submit" disabled={disabled} className="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 font-medium disabled:opacity-50 disabled:cursor-not-allowed shadow-md">
                 {loading ? 'Sending…' : 'Send message'}
               </button>
-              <a href={`mailto:${userConfig.contact.email}`} className="text-sm text-gray-300 hover:text-white underline underline-offset-2">Email me directly</a>
+              <div className="flex items-center gap-2.5 text-xs text-gray-300">
+                <a href={`mailto:${userConfig.contact.email}`} className="hover:text-white underline underline-offset-2">Email</a>
+                <span>&bull;</span>
+                <a href={userConfig.social.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-[#70b5f9]">LinkedIn</a>
+                <span>&bull;</span>
+                <a href={userConfig.social.github} target="_blank" rel="noopener noreferrer" className="hover:text-white">GitHub</a>
+                <span>&bull;</span>
+                <a href={userConfig.social.leetcode || 'https://leetcode.com/u/Vlx3f7mVBz/'} target="_blank" rel="noopener noreferrer" className="hover:text-[#ffa116] font-medium">LeetCode</a>
+              </div>
             </div>
           </form>
         )}

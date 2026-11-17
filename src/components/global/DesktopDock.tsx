@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { BsGithub, BsSpotify, BsFilePdf, BsStickyFill, BsCalendar } from 'react-icons/bs';
 import { IoIosCall, IoIosMail } from 'react-icons/io';
 import { FaLink, FaEnvelope, FaChrome, FaLinkedin } from 'react-icons/fa';
+import { SiLeetcode } from 'react-icons/si';
 import ResumeViewer from './ResumeViewer';
 import SpotifyPlayer from './SpotifyPlayer';
 import CalendarApp from './CalendarApp';
@@ -161,6 +162,15 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
         >
           <BsGithub size={20} />
           <span className="text-sm font-medium">GitHub</span>
+        </a>
+        <a
+          href={userConfig.social.leetcode || 'https://leetcode.com/u/Vlx3f7mVBz/'}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg text-gray-300 hover:text-white hover:bg-white/10 transition-colors"
+        >
+          <SiLeetcode size={20} className="text-[#ffa116]" />
+          <span className="text-sm font-medium">LeetCode</span>
         </a>
         <a
           href={`mailto:${userConfig.contact.email}`}

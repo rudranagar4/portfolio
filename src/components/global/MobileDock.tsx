@@ -1,5 +1,6 @@
 import { BsGithub, BsSpotify, BsLinkedin } from 'react-icons/bs';
 import { IoIosMail, IoIosCall } from 'react-icons/io';
+import { SiLeetcode } from 'react-icons/si';
 import { userConfig } from '../../config/index';
 import { BsStickyFill } from 'react-icons/bs';
 import { RiTerminalFill } from 'react-icons/ri';
@@ -99,6 +100,18 @@ export default function MobileDock({ onGitHubClick, onNotesClick, onResumeClick,
             </div>
           </a>
         )}
+
+        <a
+          href={userConfig.social.leetcode || 'https://leetcode.com/u/Vlx3f7mVBz/'}
+          className='flex flex-col items-center'
+          aria-label='Open LeetCode profile'
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          <div className='w-18 h-18 bg-[#ffa116] rounded-2xl flex items-center justify-center'>
+            <SiLeetcode size={48} className='text-black' />
+          </div>
+        </a>
 
         <button
           onClick={handleSpotifyClick}
