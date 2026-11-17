@@ -250,3 +250,4 @@ export default function ChromeApp({ isOpen, onClose }: ChromeAppProps) {
     </DraggableWindow>
   );
 }
+

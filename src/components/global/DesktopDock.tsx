@@ -6,6 +6,7 @@ import ResumeViewer from './ResumeViewer';
 import SpotifyPlayer from './SpotifyPlayer';
 import CalendarApp from './CalendarApp';
 import ChromeApp from './ChromeApp';
+import LinkedInApp from './LinkedInApp';
 import { userConfig } from '../../config/index';
 import { RiTerminalFill } from 'react-icons/ri';
 
@@ -29,6 +30,7 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
   const [showSpotify, setShowSpotify] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
   const [showChrome, setShowChrome] = useState(false);
+  const [showLinkedIn, setShowLinkedIn] = useState(false);
   const [showLinksPopup, setShowLinksPopup] = useState(false);
   const [mouseX, setMouseX] = useState<number | null>(null);
   const dockRef = useRef<HTMLDivElement>(null);
@@ -55,7 +57,11 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
   };
 
   const handleLinkedInClick = () => {
-    window.open(userConfig.social.linkedin, '_blank');
+    setShowLinkedIn(true);
+  };
+
+  const handleCloseLinkedIn = () => {
+    setShowLinkedIn(false);
   };
 
   const handleSpotifyClick = () => {
@@ -168,7 +174,7 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
     { id: 'resume', label: 'View Resume', onClick: handleResumeClick, icon: BsFilePdf, color: 'from-red-600 to-red-400', active: activeApps.resume },
     { id: 'calendar', label: 'Calendar', onClick: handleCalendarClick, icon: BsCalendar, color: 'from-blue-600 to-blue-400', active: showCalendar },
     { id: 'spotify', label: 'Spotify Playlist', onClick: handleSpotifyClick, icon: BsSpotify, color: 'from-green-600 to-green-400', active: activeApps.spotify },
-    { id: 'linkedin', label: 'LinkedIn', onClick: handleLinkedInClick, icon: FaLinkedin, color: 'from-[#0077b5] to-[#0a66c2]', active: false },
+    { id: 'linkedin', label: 'LinkedIn', onClick: handleLinkedInClick, icon: FaLinkedin, color: 'from-[#0077b5] to-[#0a66c2]', active: showLinkedIn },
     { id: 'email', label: 'Contact', onClick: onContactClick, icon: IoIosMail, color: 'from-blue-600 to-blue-400', active: false },
     { id: 'links', label: 'Contact Links', onClick: handleLinksClick, icon: FaLink, color: 'from-purple-600 to-purple-400', active: false },
     { id: 'terminal', label: 'Terminal', onClick: onTerminalClick, icon: RiTerminalFill, color: 'from-black to-black/60', active: activeApps.terminal },
@@ -227,6 +233,7 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
       <ResumeViewer isOpen={showResume} onClose={handleCloseResume} />
       <CalendarApp isOpen={showCalendar} onClose={handleCloseCalendar} />
       <ChromeApp isOpen={showChrome} onClose={handleCloseChrome} />
+      <LinkedInApp isOpen={showLinkedIn} onClose={handleCloseLinkedIn} />
       <SpotifyPlayer
         isOpen={showSpotify}
         onClose={handleCloseSpotify}
