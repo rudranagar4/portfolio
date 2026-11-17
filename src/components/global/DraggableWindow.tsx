@@ -45,8 +45,9 @@ export default function DraggableWindow({
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Focus the window when it mounts for better keyboard accessibility
+  // Bring to front and focus the window when it mounts
   useEffect(() => {
+    bringToFront();
     windowRef.current?.focus();
   }, []);
 

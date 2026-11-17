@@ -246,7 +246,7 @@ export interface ChatHistory {
 // App State Types
 // ============================================
 
-export type AppId = 'terminal' | 'notes' | 'github' | 'resume' | 'spotify';
+export type AppId = 'terminal' | 'notes' | 'github' | 'resume' | 'spotify' | 'linkedin';
 
 export interface ActiveApps {
   terminal: boolean;
@@ -254,4 +254,5 @@ export interface ActiveApps {
   github: boolean;
   resume: boolean;
   spotify: boolean;
+  linkedin?: boolean;
 }

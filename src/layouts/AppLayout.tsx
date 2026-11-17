@@ -8,6 +8,7 @@ import NotesApp from '../components/global/NotesApp';
 import type { Section as NotesSection } from '../components/global/NotesApp';
 import GitHubViewer from '../components/global/GitHubViewer';
 import ResumeViewer from '../components/global/ResumeViewer';
+import LinkedInApp from '../components/global/LinkedInApp';
 import ShortcutsOverlay from '../components/global/ShortcutsOverlay';
 import MissionControl from '../components/global/MissionControl';
 import ContactWidget from '../components/global/ContactWidget';
@@ -29,7 +30,7 @@ type TutorialStep = {
 
 export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
   const [currentBg, setCurrentBg] = useState<string>(initialBg);
-  type App = 'terminal' | 'notes' | 'github' | 'resume' | 'spotify';
+  type App = 'terminal' | 'notes' | 'github' | 'resume' | 'spotify' | 'linkedin';
   type State = { windows: Record<App, boolean> };
   type Action = { type: 'OPEN' | 'CLOSE' | 'TOGGLE'; app: App } | { type: 'CLOSE_ALL' };
 
@@ -42,14 +43,14 @@ export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
       case 'TOGGLE':
         return { windows: { ...state.windows, [action.app]: !state.windows[action.app] } };
       case 'CLOSE_ALL':
-        return { windows: { terminal: false, notes: false, github: false, resume: false, spotify: false } };
+        return { windows: { terminal: false, notes: false, github: false, resume: false, spotify: false, linkedin: false } };
       default:
         return state;
     }
   };
 
   const [state, dispatch] = useReducer(reducer, {
-    windows: { terminal: false, notes: false, github: false, resume: false, spotify: false },
+    windows: { terminal: false, notes: false, github: false, resume: false, spotify: false, linkedin: false },
   });
   const [showTutorial, setShowTutorial] = useState(false);
   const [isSpotlightOpen, setIsSpotlightOpen] = useState(false);
@@ -246,6 +247,9 @@ export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
         onTerminalClick={() => {
           handleAppOpen('terminal');
         }}
+        onLinkedInClick={() => {
+          handleAppOpen('linkedin');
+        }}
       />
       <DesktopDock
         onTerminalClick={() => {
@@ -258,6 +262,9 @@ export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
           handleAppOpen('github');
         }}
         onContactClick={() => setIsContactOpen(true)}
+        onLinkedInClick={() => {
+          handleAppOpen('linkedin');
+        }}
         activeApps={activeApps}
       />
 
@@ -269,6 +276,9 @@ export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
       }} selectedProjectId={selectedProjectId} />
       <ResumeViewer isOpen={state.windows.resume} onClose={() => {
         handleAppClose('resume');
+      }} />
+      <LinkedInApp isOpen={state.windows.linkedin} onClose={() => {
+        handleAppClose('linkedin');
       }} />
       <MacTerminal isOpen={state.windows.terminal} onClose={() => {
         handleAppClose('terminal');
@@ -283,6 +293,7 @@ export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
           openNotesSection: (s) => openNotesSection(s as NotesSection),
           openGitHub: () => handleAppOpen('github'),
           openResume: () => handleAppOpen('resume'),
+          openLinkedIn: () => handleAppOpen('linkedin'),
           showTutorial: resetTutorial,
           closeAllWindows,
           shuffleBackground,

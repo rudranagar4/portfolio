@@ -10,9 +10,10 @@ interface MobileDockProps {
   onNotesClick: () => void;
   onResumeClick: () => void;
   onTerminalClick: () => void;
+  onLinkedInClick?: () => void;
 }
 
-export default function MobileDock({ onGitHubClick, onNotesClick, onResumeClick, onTerminalClick }: MobileDockProps) {
+export default function MobileDock({ onGitHubClick, onNotesClick, onResumeClick, onTerminalClick, onLinkedInClick }: MobileDockProps) {
   const handleEmailClick = () => {
     window.location.href = `mailto:${userConfig.contact.email}`;
   };
@@ -81,11 +82,23 @@ export default function MobileDock({ onGitHubClick, onNotesClick, onResumeClick,
           </div>
         </button>
 
-        <a href={userConfig.social.linkedin} className='flex flex-col items-center' aria-label='Open LinkedIn profile' target="_blank" rel="noreferrer noopener">
-          <div className='w-18 h-18 bg-[#0a66c2] rounded-2xl flex items-center justify-center'>
-            <BsLinkedin size={50} className='text-white' />
-          </div>
-        </a>
+        {onLinkedInClick ? (
+          <button
+            onClick={onLinkedInClick}
+            aria-label='Open LinkedIn Profile'
+            className='flex flex-col items-center cursor-pointer'
+          >
+            <div className='w-18 h-18 bg-[#0a66c2] rounded-2xl flex items-center justify-center'>
+              <BsLinkedin size={50} className='text-white' />
+            </div>
+          </button>
+        ) : (
+          <a href={userConfig.social.linkedin} className='flex flex-col items-center' aria-label='Open LinkedIn profile' target="_blank" rel="noreferrer noopener">
+            <div className='w-18 h-18 bg-[#0a66c2] rounded-2xl flex items-center justify-center'>
+              <BsLinkedin size={50} className='text-white' />
+            </div>
+          </a>
+        )}
 
         <button
           onClick={handleSpotifyClick}

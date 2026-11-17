@@ -15,16 +15,18 @@ interface DesktopDockProps {
   onNotesClick: () => void;
   onGitHubClick: () => void;
   onContactClick: () => void;
+  onLinkedInClick?: () => void;
   activeApps: {
     terminal: boolean;
     notes: boolean;
     github: boolean;
     resume: boolean;
     spotify: boolean;
+    linkedin?: boolean;
   };
 }
 
-const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactClick, activeApps }: DesktopDockProps) => {
+const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactClick, onLinkedInClick, activeApps }: DesktopDockProps) => {
   const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
   const [showResume, setShowResume] = useState(false);
   const [showSpotify, setShowSpotify] = useState(false);
@@ -41,7 +43,7 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
   };
 
   const handleCalendarClick = () => {
-    setShowCalendar(true);
+    setShowCalendar((prev) => !prev);
   };
 
   const handleCloseCalendar = () => {
@@ -49,7 +51,7 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
   };
 
   const handleChromeClick = () => {
-    setShowChrome(true);
+    setShowChrome((prev) => !prev);
   };
 
   const handleCloseChrome = () => {
@@ -57,7 +59,11 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
   };
 
   const handleLinkedInClick = () => {
-    setShowLinkedIn(true);
+    if (onLinkedInClick) {
+      onLinkedInClick();
+    } else {
+      setShowLinkedIn((prev) => !prev);
+    }
   };
 
   const handleCloseLinkedIn = () => {
@@ -65,11 +71,11 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
   };
 
   const handleSpotifyClick = () => {
-    setShowSpotify(true);
+    setShowSpotify((prev) => !prev);
   };
 
   const handleResumeClick = () => {
-    setShowResume(true);
+    setShowResume((prev) => !prev);
   };
 
   const handleCloseResume = () => {
@@ -174,7 +180,7 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
     { id: 'resume', label: 'View Resume', onClick: handleResumeClick, icon: BsFilePdf, color: 'from-red-600 to-red-400', active: activeApps.resume },
     { id: 'calendar', label: 'Calendar', onClick: handleCalendarClick, icon: BsCalendar, color: 'from-blue-600 to-blue-400', active: showCalendar },
     { id: 'spotify', label: 'Spotify Playlist', onClick: handleSpotifyClick, icon: BsSpotify, color: 'from-green-600 to-green-400', active: activeApps.spotify },
-    { id: 'linkedin', label: 'LinkedIn', onClick: handleLinkedInClick, icon: FaLinkedin, color: 'from-[#0077b5] to-[#0a66c2]', active: showLinkedIn },
+    { id: 'linkedin', label: 'LinkedIn', onClick: handleLinkedInClick, icon: FaLinkedin, color: 'from-[#0077b5] to-[#0a66c2]', active: Boolean(activeApps.linkedin ?? showLinkedIn) },
     { id: 'email', label: 'Contact', onClick: onContactClick, icon: IoIosMail, color: 'from-blue-600 to-blue-400', active: false },
     { id: 'links', label: 'Contact Links', onClick: handleLinksClick, icon: FaLink, color: 'from-purple-600 to-purple-400', active: false },
     { id: 'terminal', label: 'Terminal', onClick: onTerminalClick, icon: RiTerminalFill, color: 'from-black to-black/60', active: activeApps.terminal },
@@ -233,7 +239,7 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
       <ResumeViewer isOpen={showResume} onClose={handleCloseResume} />
       <CalendarApp isOpen={showCalendar} onClose={handleCloseCalendar} />
       <ChromeApp isOpen={showChrome} onClose={handleCloseChrome} />
-      <LinkedInApp isOpen={showLinkedIn} onClose={handleCloseLinkedIn} />
+      {!onLinkedInClick && <LinkedInApp isOpen={showLinkedIn} onClose={handleCloseLinkedIn} />}
       <SpotifyPlayer
         isOpen={showSpotify}
         onClose={handleCloseSpotify}

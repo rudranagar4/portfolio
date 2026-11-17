@@ -22,16 +22,21 @@ export default function LinkedInApp({ isOpen, onClose }: LinkedInAppProps) {
 
   if (!isOpen) return null;
 
+  const isClient = typeof window !== 'undefined';
+  const screenW = isClient ? window.innerWidth : 1024;
+  const screenH = isClient ? window.innerHeight : 768;
+  const width = Math.min(840, Math.max(340, screenW - 40));
+  const height = Math.min(600, Math.max(380, screenH - 80));
+  const posX = Math.max(10, Math.floor((screenW - width) / 2));
+  const posY = Math.max(30, Math.floor((screenH - height) / 2) - 15);
+
   return (
     <DraggableWindow
       title="LinkedIn ⸺ Rudra Pratap Nagar"
       onClose={onClose}
-      initialPosition={{
-        x: Math.floor(window.innerWidth * 0.16),
-        y: Math.floor(window.innerHeight * 0.08),
-      }}
+      initialPosition={{ x: posX, y: posY }}
       className="w-[95%] max-w-4xl shadow-2xl"
-      initialSize={{ width: 860, height: 600 }}
+      initialSize={{ width, height }}
     >
       <div className="flex flex-col h-full bg-[#1b1f23] text-gray-200 select-none">
         {/* LinkedIn Top Navigation Bar */}

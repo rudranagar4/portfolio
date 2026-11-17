@@ -34,6 +34,7 @@ export interface SpotlightProps {
     ) => void;
     openGitHub: () => void;
     openResume: () => void;
+    openLinkedIn?: () => void;
     showTutorial: () => void;
     closeAllWindows: () => void;
     shuffleBackground: () => void;
@@ -212,6 +213,14 @@ export default function Spotlight({ isOpen, onClose, actions }: SpotlightProps) 
         category: 'Actions',
         icon: <IoDocumentTextOutline className="text-gray-300" />,
         action: actions.openResume,
+      },
+      {
+        id: 'action:linkedin',
+        title: 'Open LinkedIn Profile App',
+        subtitle: 'View interactive LinkedIn in macOS window',
+        category: 'Actions',
+        icon: <FaLinkedin className="text-[#0a66c2]" />,
+        action: actions.openLinkedIn || (() => window.open(userConfig.social.linkedin, '_blank')),
       },
       {
         id: 'action:tutorial',
