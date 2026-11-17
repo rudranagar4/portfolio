@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
-import { BsGithub, BsSpotify, BsFilePdf, BsStickyFill, BsLinkedin, BsCalendar } from 'react-icons/bs';
+import { BsGithub, BsSpotify, BsFilePdf, BsStickyFill, BsCalendar } from 'react-icons/bs';
 import { IoIosCall, IoIosMail } from 'react-icons/io';
-import { FaLink, FaEnvelope } from 'react-icons/fa';
+import { FaLink, FaEnvelope, FaChrome, FaLinkedin } from 'react-icons/fa';
 import ResumeViewer from './ResumeViewer';
 import SpotifyPlayer from './SpotifyPlayer';
 import CalendarApp from './CalendarApp';
+import ChromeApp from './ChromeApp';
 import { userConfig } from '../../config/index';
 import { RiTerminalFill } from 'react-icons/ri';
 
@@ -27,6 +28,7 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
   const [showResume, setShowResume] = useState(false);
   const [showSpotify, setShowSpotify] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
+  const [showChrome, setShowChrome] = useState(false);
   const [showLinksPopup, setShowLinksPopup] = useState(false);
   const [mouseX, setMouseX] = useState<number | null>(null);
   const dockRef = useRef<HTMLDivElement>(null);
@@ -42,6 +44,18 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
 
   const handleCloseCalendar = () => {
     setShowCalendar(false);
+  };
+
+  const handleChromeClick = () => {
+    setShowChrome(true);
+  };
+
+  const handleCloseChrome = () => {
+    setShowChrome(false);
+  };
+
+  const handleLinkedInClick = () => {
+    window.open(userConfig.social.linkedin, '_blank');
   };
 
   const handleSpotifyClick = () => {
@@ -124,7 +138,7 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
           rel="noopener noreferrer"
           className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg text-gray-300 hover:text-white hover:bg-white/10 transition-colors"
         >
-          <BsLinkedin size={20} className="text-[#0a66c2]" />
+          <FaLinkedin size={20} className="text-[#0a66c2]" />
           <span className="text-sm font-medium">LinkedIn</span>
         </a>
         <a
@@ -149,10 +163,12 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
 
   const icons = [
     { id: 'github', label: 'My Projects', onClick: onGitHubClick, icon: BsGithub, color: 'from-black to-black/60', active: activeApps.github },
+    { id: 'chrome', label: 'Google Chrome', onClick: handleChromeClick, icon: FaChrome, color: 'from-white to-gray-100', active: showChrome },
     { id: 'notes', label: 'Resume Notes', onClick: onNotesClick, icon: BsStickyFill, color: 'from-yellow-600 to-yellow-400', active: activeApps.notes },
     { id: 'resume', label: 'View Resume', onClick: handleResumeClick, icon: BsFilePdf, color: 'from-red-600 to-red-400', active: activeApps.resume },
     { id: 'calendar', label: 'Calendar', onClick: handleCalendarClick, icon: BsCalendar, color: 'from-blue-600 to-blue-400', active: showCalendar },
     { id: 'spotify', label: 'Spotify Playlist', onClick: handleSpotifyClick, icon: BsSpotify, color: 'from-green-600 to-green-400', active: activeApps.spotify },
+    { id: 'linkedin', label: 'LinkedIn', onClick: handleLinkedInClick, icon: FaLinkedin, color: 'from-[#0077b5] to-[#0a66c2]', active: false },
     { id: 'email', label: 'Contact', onClick: onContactClick, icon: IoIosMail, color: 'from-blue-600 to-blue-400', active: false },
     { id: 'links', label: 'Contact Links', onClick: handleLinksClick, icon: FaLink, color: 'from-purple-600 to-purple-400', active: false },
     { id: 'terminal', label: 'Terminal', onClick: onTerminalClick, icon: RiTerminalFill, color: 'from-black to-black/60', active: activeApps.terminal },
@@ -161,11 +177,12 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
   return (
     <>
       <nav aria-label="Dock" className="fixed bottom-0 left-0 right-0 hidden md:flex justify-center pb-3.5 z-100">
-        <div ref={dockRef} className="bg-gray-800/65 backdrop-blur-xl border border-white/15 rounded-2xl p-2 px-4 shadow-2xl">
-          <div className="flex items-center space-x-4" role="menubar">
+        <div ref={dockRef} className="bg-gray-800/65 backdrop-blur-xl border border-white/15 rounded-2xl p-2 px-3.5 shadow-2xl">
+          <div className="flex items-center space-x-3.5" role="menubar">
             {icons.map((item, index) => {
               const Icon = item.icon;
               const scale = calculateScale(index, icons.length);
+              const isChrome = item.id === 'chrome';
               return (
                 <button
                   key={item.id}
@@ -180,7 +197,22 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
                   style={{ transform: `scale(${scale})`, transition: 'transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)' }}
                 >
                   <div className={`relative w-[52px] h-[52px] bg-gradient-to-t ${item.color} rounded-xl flex items-center justify-center shadow-xl active:scale-95 transition-all duration-150 ${item.active ? 'ring-2 ring-white/60' : ''}`}>
-                    <Icon size={item.id === 'email' ? 40 : item.id === 'calendar' || item.id === 'links' ? 26 : 32} className='text-white drop-shadow' />
+                    <Icon
+                      size={
+                        item.id === 'email'
+                          ? 40
+                          : item.id === 'calendar' || item.id === 'links'
+                          ? 26
+                          : isChrome
+                          ? 32
+                          : 30
+                      }
+                      className={
+                        isChrome
+                          ? 'text-[#4285F4] drop-shadow'
+                          : 'text-white drop-shadow'
+                      }
+                    />
                     {item.active && <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-white rounded-full shadow-sm" aria-hidden="true" />}
                   </div>
                   {hoveredIcon === item.id && <Tooltip text={item.label} />}
@@ -194,6 +226,7 @@ const DesktopDock = ({ onTerminalClick, onNotesClick, onGitHubClick, onContactCl
 
       <ResumeViewer isOpen={showResume} onClose={handleCloseResume} />
       <CalendarApp isOpen={showCalendar} onClose={handleCloseCalendar} />
+      <ChromeApp isOpen={showChrome} onClose={handleCloseChrome} />
       <SpotifyPlayer
         isOpen={showSpotify}
         onClose={handleCloseSpotify}

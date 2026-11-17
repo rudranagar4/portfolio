@@ -361,3 +361,4 @@ export default function CalendarApp({ isOpen, onClose }: CalendarAppProps) {
     </DraggableWindow>
   );
 }
+
