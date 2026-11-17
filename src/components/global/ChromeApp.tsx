@@ -16,10 +16,12 @@ import {
   FaStar,
   FaFolder,
   FaPlay,
+  FaCheckCircle,
 } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { BsGlobe } from 'react-icons/bs';
 import { userConfig } from '../../config/index';
+import { leetcodeProblems } from '../../config/leetcode';
 
 interface ChromeAppProps {
   isOpen: boolean;
@@ -61,6 +63,9 @@ export default function ChromeApp({ isOpen, onClose }: ChromeAppProps) {
   const [urlInput, setUrlInput] = useState('https://www.google.com');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeYoutubeTrack, setActiveYoutubeTrack] = useState<string>('Winning Speech - Karan Aujla');
+  const [leetcodeFilter, setLeetcodeFilter] = useState<'All' | 'Easy' | 'Medium' | 'Hard'>('All');
+  const [leetcodeCategory, setLeetcodeCategory] = useState<string>('All');
+  const [leetcodeSearch, setLeetcodeSearch] = useState<string>('');
 
   const activeTab = tabs.find((t) => t.id === activeTabId) || tabs[0];
 
@@ -665,49 +670,244 @@ export default function ChromeApp({ isOpen, onClose }: ChromeAppProps) {
           )}
 
           {/* TAB 4: LEETCODE / DSA TRACKER */}
-          {activeTab.type === 'leetcode' && (
-            <div className="p-4 md:p-6 max-w-4xl mx-auto w-full space-y-6">
-              <div className="bg-[#282828] border border-white/10 rounded-xl p-5 flex flex-col md:flex-row items-center justify-between gap-4 shadow-lg">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xl border border-amber-500/30">
-                    LC
+          {activeTab.type === 'leetcode' && (() => {
+            const totalSolved = leetcodeProblems.length;
+            const easyCount = leetcodeProblems.filter((p) => p.difficulty === 'Easy').length;
+            const mediumCount = leetcodeProblems.filter((p) => p.difficulty === 'Medium').length;
+            const hardCount = leetcodeProblems.filter((p) => p.difficulty === 'Hard').length;
+
+            const filteredLeetcode = leetcodeProblems.filter((p) => {
+              const matchesDiff = leetcodeFilter === 'All' || p.difficulty === leetcodeFilter;
+              const matchesCat = leetcodeCategory === 'All' || p.category === leetcodeCategory;
+              const matchesSearch =
+                !leetcodeSearch.trim() ||
+                p.title.toLowerCase().includes(leetcodeSearch.toLowerCase()) ||
+                p.id.toString().includes(leetcodeSearch.trim());
+              return matchesDiff && matchesCat && matchesSearch;
+            });
+
+            const categories = ['All', ...Array.from(new Set(leetcodeProblems.map((p) => p.category)))];
+
+            return (
+              <div className="p-4 md:p-6 max-w-4xl mx-auto w-full space-y-6">
+                {/* LeetCode Header Banner */}
+                <div className="bg-[#282828] border border-white/10 rounded-xl p-5 flex flex-col md:flex-row items-center justify-between gap-4 shadow-xl">
+                  <div className="flex items-center gap-3">
+                    <div className="w-13 h-13 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-extrabold text-2xl border border-amber-500/30 shadow-inner">
+                      LC
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h2 className="text-lg font-bold text-white">Rudra Pratap's LeetCode Profile</h2>
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-green-500/20 text-green-300 font-semibold border border-green-500/30 flex items-center gap-1">
+                          <FaCheckCircle size={9} />
+                          <span>57 Accepted</span>
+                        </span>
+                      </div>
+                      <p className="text-xs text-gray-300 mt-0.5">
+                        Algorithms, Data Structures & Systems Programming in C++ & Python
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h2 className="text-base font-bold text-white">LeetCode DSA Practice</h2>
-                    <p className="text-xs text-gray-300">Data Structures & Algorithms in C++ & Python</p>
+
+                  <a
+                    href="https://leetcode.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-4 py-2 bg-[#ffa116] hover:bg-[#e69113] text-black font-bold text-xs rounded-full shadow-md transition-all hover:scale-105 active:scale-95"
+                  >
+                    <span>Open LeetCode.com</span>
+                    <FaExternalLinkAlt size={10} />
+                  </a>
+                </div>
+
+                {/* Difficulty Statistics Cards */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  <div className="bg-[#282828] p-4 rounded-xl border border-white/10 text-center">
+                    <span className="text-xs text-gray-400 font-medium">Total Solved</span>
+                    <p className="text-2xl md:text-3xl font-extrabold text-white mt-1">{totalSolved}</p>
+                    <p className="text-[10px] text-green-400 mt-0.5 font-medium">100% Verified Submissions</p>
+                  </div>
+                  <div className="bg-[#282828] p-4 rounded-xl border border-green-500/20 text-center">
+                    <span className="text-xs text-green-400 font-bold">Easy</span>
+                    <p className="text-2xl md:text-3xl font-extrabold text-white mt-1">{easyCount}</p>
+                    <p className="text-[10px] text-gray-400 mt-0.5">Hash Tables, Linked Lists</p>
+                  </div>
+                  <div className="bg-[#282828] p-4 rounded-xl border border-amber-500/20 text-center">
+                    <span className="text-xs text-amber-400 font-bold">Medium</span>
+                    <p className="text-2xl md:text-3xl font-extrabold text-white mt-1">{mediumCount}</p>
+                    <p className="text-[10px] text-gray-400 mt-0.5">Binary Search, Stacks, DP</p>
+                  </div>
+                  <div className="bg-[#282828] p-4 rounded-xl border border-red-500/20 text-center">
+                    <span className="text-xs text-red-400 font-bold">Hard</span>
+                    <p className="text-2xl md:text-3xl font-extrabold text-white mt-1">{hardCount}</p>
+                    <p className="text-[10px] text-gray-400 mt-0.5">k-Group, Window Substring</p>
                   </div>
                 </div>
 
-                <a
-                  href="https://leetcode.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 px-3.5 py-1.5 bg-[#ffa116] hover:bg-[#e69113] text-black font-semibold text-xs rounded-full transition-colors"
-                >
-                  <FaExternalLinkAlt size={10} />
-                  <span>Open LeetCode.com</span>
-                </a>
-              </div>
+                {/* Search & Filter Controls */}
+                <div className="bg-[#282828] p-4 rounded-xl border border-white/10 space-y-3">
+                  <div className="flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
+                    {/* Search Bar */}
+                    <div className="relative flex-1">
+                      <FaSearch className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs" />
+                      <input
+                        type="text"
+                        value={leetcodeSearch}
+                        onChange={(e) => setLeetcodeSearch(e.target.value)}
+                        placeholder="Search by problem name or number (e.g. 875, Bananas, Subarray)..."
+                        className="w-full bg-[#1e1e1e] border border-white/10 rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-amber-500/70"
+                      />
+                      {leetcodeSearch && (
+                        <button
+                          onClick={() => setLeetcodeSearch('')}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+                        >
+                          <FaTimes size={10} />
+                        </button>
+                      )}
+                    </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                <div className="bg-[#282828] p-4 rounded-xl border border-white/10 text-center">
-                  <span className="text-xs text-green-400 font-bold">Easy</span>
-                  <p className="text-2xl font-bold text-white mt-1">45+</p>
-                  <p className="text-[10px] text-gray-400">Arrays, Strings, Hash Maps</p>
+                    {/* Difficulty Pills */}
+                    <div className="flex items-center gap-1.5 bg-[#1e1e1e] p-1 rounded-lg border border-white/5">
+                      {(['All', 'Easy', 'Medium', 'Hard'] as const).map((diff) => {
+                        const count =
+                          diff === 'All'
+                            ? totalSolved
+                            : diff === 'Easy'
+                            ? easyCount
+                            : diff === 'Medium'
+                            ? mediumCount
+                            : hardCount;
+                        const isSelected = leetcodeFilter === diff;
+                        return (
+                          <button
+                            key={diff}
+                            onClick={() => setLeetcodeFilter(diff)}
+                            className={`px-3 py-1 rounded-md text-xs font-semibold transition-all cursor-pointer ${
+                              isSelected
+                                ? diff === 'Easy'
+                                  ? 'bg-green-600 text-white shadow-sm'
+                                  : diff === 'Medium'
+                                  ? 'bg-amber-600 text-white shadow-sm'
+                                  : diff === 'Hard'
+                                  ? 'bg-red-600 text-white shadow-sm'
+                                  : 'bg-white/20 text-white shadow-sm'
+                                : 'text-gray-400 hover:text-white hover:bg-white/5'
+                            }`}
+                          >
+                            {diff} ({count})
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Category Pills */}
+                  <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none pt-1">
+                    <span className="text-[11px] text-gray-400 font-semibold mr-1 flex items-center gap-1 flex-shrink-0">
+                      Topic:
+                    </span>
+                    {categories.map((cat) => {
+                      const isCatSelected = leetcodeCategory === cat;
+                      return (
+                        <button
+                          key={cat}
+                          onClick={() => setLeetcodeCategory(cat)}
+                          className={`px-2.5 py-1 rounded-md text-[11px] font-medium whitespace-nowrap transition-all cursor-pointer flex-shrink-0 ${
+                            isCatSelected
+                              ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
+                              : 'bg-white/5 text-gray-400 hover:text-gray-200 hover:bg-white/10'
+                          }`}
+                        >
+                          {cat}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
-                <div className="bg-[#282828] p-4 rounded-xl border border-white/10 text-center">
-                  <span className="text-xs text-amber-400 font-bold">Medium</span>
-                  <p className="text-2xl font-bold text-white mt-1">60+</p>
-                  <p className="text-[10px] text-gray-400">Trees, Graphs, DP, Binary Search</p>
-                </div>
-                <div className="bg-[#282828] p-4 rounded-xl border border-white/10 text-center">
-                  <span className="text-xs text-red-400 font-bold">Hard</span>
-                  <p className="text-2xl font-bold text-white mt-1">10+</p>
-                  <p className="text-[10px] text-gray-400">Advanced Graph & Networking</p>
+
+                {/* Problems Solved List */}
+                <div className="bg-[#282828] rounded-xl border border-white/10 overflow-hidden shadow-lg">
+                  <div className="flex items-center justify-between p-3.5 bg-[#202020] border-b border-white/10 text-xs text-gray-400 font-semibold">
+                    <span>Showing {filteredLeetcode.length} of {totalSolved} solved problems</span>
+                    <span className="text-gray-500 text-[11px]">Sorted by submission date</span>
+                  </div>
+
+                  <div className="divide-y divide-white/5 max-h-[460px] overflow-y-auto scrollbar-thin">
+                    {filteredLeetcode.length === 0 ? (
+                      <div className="p-8 text-center text-xs text-gray-400">
+                        No problems match your current filter.
+                      </div>
+                    ) : (
+                      filteredLeetcode.map((prob) => {
+                        return (
+                          <div
+                            key={prob.id}
+                            className="p-3 md:p-3.5 flex items-center justify-between hover:bg-white/5 transition-colors gap-3"
+                          >
+                            <div className="flex items-center gap-3 min-w-0">
+                              <span className="text-xs text-gray-500 font-mono w-10 flex-shrink-0">
+                                #{prob.id}
+                              </span>
+
+                              <div className="min-w-0">
+                                <a
+                                  href={prob.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-xs md:text-sm font-semibold text-white hover:text-amber-400 transition-colors truncate block flex items-center gap-1.5"
+                                >
+                                  <span>{prob.title}</span>
+                                  <FaExternalLinkAlt size={10} className="opacity-40 group-hover:opacity-100 flex-shrink-0" />
+                                </a>
+                                <div className="flex flex-wrap items-center gap-2 mt-1 text-[11px]">
+                                  <span
+                                    className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                                      prob.difficulty === 'Easy'
+                                        ? 'bg-green-500/15 text-green-400 border border-green-500/30'
+                                        : prob.difficulty === 'Medium'
+                                        ? 'bg-amber-500/15 text-amber-400 border border-amber-500/30'
+                                        : 'bg-red-500/15 text-red-400 border border-red-500/30'
+                                    }`}
+                                  >
+                                    {prob.difficulty}
+                                  </span>
+                                  <span className="text-gray-400 bg-white/5 px-2 py-0.5 rounded text-[10px]">
+                                    {prob.category}
+                                  </span>
+                                  <span className="text-gray-500">&bull;</span>
+                                  <span className="text-gray-400 text-[10px]">Solved {prob.date}</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="flex items-center gap-3 flex-shrink-0">
+                              <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-green-500/10 text-green-400 text-[11px] font-semibold border border-green-500/20">
+                                <FaCheckCircle size={10} />
+                                <span>Accepted</span>
+                              </span>
+                              <span className="text-[11px] text-gray-500 hidden md:inline">
+                                {prob.attempts} {prob.attempts === 1 ? 'try' : 'tries'}
+                              </span>
+                              <a
+                                href={prob.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-3 py-1 rounded bg-[#ffa116]/10 hover:bg-[#ffa116] text-[#ffa116] hover:text-black text-xs font-semibold transition-all border border-[#ffa116]/30"
+                              >
+                                View
+                              </a>
+                            </div>
+                          </div>
+                        );
+                      })
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            );
+          })()}
 
           {/* TAB 5: GENERIC WEB URL */}
           {activeTab.type === 'web' && (
