@@ -4,7 +4,6 @@ import {
   FaLinkedin,
   FaSearch,
   FaHome,
-  FaUserFriends,
   FaExternalLinkAlt,
   FaMapMarkerAlt,
   FaEnvelope,
@@ -155,8 +154,12 @@ export default function LinkedInApp({ isOpen, onClose }: LinkedInAppProps) {
                 activeTab === 'profile' ? 'text-white border-b-2 border-white pb-0.5' : 'hover:text-white text-gray-400'
               }`}
             >
-              <FaUserFriends size={15} />
-              <span className="text-[10px] mt-0.5 font-medium">Profile</span>
+              <img
+                src="/linkedin-pfp.jpg"
+                alt="Me"
+                className="w-4 h-4 rounded-full object-cover border border-white/20"
+              />
+              <span className="text-[10px] mt-0.5 font-medium">Me</span>
             </button>
 
             <div className="h-5 w-px bg-white/10 hidden sm:block" />
@@ -217,9 +220,13 @@ export default function LinkedInApp({ isOpen, onClose }: LinkedInAppProps) {
           {/* Profile Summary Card (Always Visible on Top) */}
           <div className="bg-[#242c34] rounded-xl border border-white/10 overflow-hidden shadow-lg">
             {/* Cover Banner */}
-            <div className="h-28 md:h-36 bg-gradient-to-r from-blue-900 via-indigo-900 to-cyan-900 relative">
-              <div className="absolute inset-0 bg-black/25" />
-              <div className="absolute top-2.5 right-3 bg-black/50 backdrop-blur-md px-2.5 py-1 rounded-md text-[11px] text-gray-300 font-medium border border-white/10 flex items-center gap-1.5">
+            <div className="h-28 sm:h-36 md:h-44 relative overflow-hidden bg-[#0a1120] w-full">
+              <img
+                src="/linkedin-banner.jpg"
+                alt="Rudra Pratap Nagar LinkedIn Banner"
+                className="w-full h-full object-cover object-center"
+              />
+              <div className="absolute top-2.5 right-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-[11px] text-gray-200 font-medium border border-white/15 flex items-center gap-1.5 shadow-md">
                 <FaGraduationCap className="text-[#70b5f9]" size={12} />
                 <span>NIET CSE (Data Science) '29</span>
               </div>
@@ -231,7 +238,7 @@ export default function LinkedInApp({ isOpen, onClose }: LinkedInAppProps) {
               <div className="-mt-12 md:-mt-16 mb-2.5 flex items-end justify-between">
                 <div className="relative">
                   <img
-                    src="/avatar.png"
+                    src="/linkedin-pfp.jpg"
                     alt="Rudra Pratap Nagar"
                     className="w-20 h-20 md:w-28 md:h-28 rounded-full border-4 border-[#242c34] object-cover bg-black shadow-xl"
                   />
@@ -316,7 +323,7 @@ export default function LinkedInApp({ isOpen, onClose }: LinkedInAppProps) {
                     <div className="p-4 pb-3 flex items-start justify-between">
                       <div className="flex items-center gap-3">
                         <img
-                          src="/avatar.png"
+                          src="/linkedin-pfp.jpg"
                           alt="Rudra Pratap Nagar"
                           className="w-11 h-11 rounded-full object-cover border border-white/10 bg-black flex-shrink-0"
                         />
@@ -453,6 +460,11 @@ export default function LinkedInApp({ isOpen, onClose }: LinkedInAppProps) {
                     {isCommentBoxOpen && (
                       <div className="p-3 bg-[#1e2329] border-t border-white/5 space-y-2">
                         <form onSubmit={(e) => handleAddComment(post.id, e)} className="flex items-center gap-2">
+                          <img
+                            src="/linkedin-pfp.jpg"
+                            alt="You"
+                            className="w-7 h-7 rounded-full object-cover border border-white/10 flex-shrink-0"
+                          />
                           <input
                             type="text"
                             value={commentInput}
@@ -472,9 +484,16 @@ export default function LinkedInApp({ isOpen, onClose }: LinkedInAppProps) {
                         {extraComments.length > 0 && (
                           <div className="space-y-1.5 pt-1">
                             {extraComments.map((c, i) => (
-                              <div key={i} className="text-xs bg-[#242c34] p-2 rounded-lg text-gray-200">
-                                <span className="font-semibold text-white">You: </span>
-                                <span>{c}</span>
+                              <div key={i} className="text-xs bg-[#242c34] p-2 rounded-lg text-gray-200 flex items-start gap-2">
+                                <img
+                                  src="/linkedin-pfp.jpg"
+                                  alt="You"
+                                  className="w-5 h-5 rounded-full object-cover border border-white/10 mt-0.5 flex-shrink-0"
+                                />
+                                <div>
+                                  <span className="font-semibold text-white">You: </span>
+                                  <span>{c}</span>
+                                </div>
                               </div>
                             ))}
                           </div>
